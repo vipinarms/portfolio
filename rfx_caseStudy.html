@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RFX Platform Redesign | UX Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brand-primary: #2563eb;
+      --brand-dark: #0f172a;
+      --brand-accent: #3b82f6;
+      --text-main: #1e293b;
+      --text-light: #64748b;
+      --bg-soft: #f8fafc;
+      --white: #ffffff;
+      --border: #e2e8f0;
+      --shadow-sm: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--white);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3 { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* --- BACK NAVIGATION --- */
+    .back-nav {
+      position: fixed;
+      top: 30px;
+      left: 30px;
+      z-index: 1000;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn-back {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 24px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 100px;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .btn-back svg { transition: transform 0.3s ease; }
+
+    .btn-back:hover {
+      background: var(--white);
+      color: var(--brand-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-back:hover svg { transform: translateX(-4px); }
+
+    /* Scrolled state for button visibility on white backgrounds */
+    .back-nav.scrolled .btn-back {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--brand-dark);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .back-nav.scrolled .btn-back:hover {
+        background: var(--brand-primary);
+        color: white;
+        border-color: var(--brand-primary);
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: var(--white);
+      padding: 160px 20px 200px;
+      text-align: center;
+      position: relative;
+      clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+    }
+
+    .hero-label {
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--brand-accent);
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 24px;
+      letter-spacing: -0.03em;
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 750px;
+      margin: 0 auto;
+      opacity: 0.85;
+      font-weight: 300;
+    }
+
+    /* --- META INFO BAR --- */
+    .meta-container {
+      max-width: 1100px;
+      margin: -100px auto 0;
+      padding: 0 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      background: var(--white);
+      border-radius: 32px;
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .meta-item {
+      padding: 40px 20px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .meta-item:last-child { border-right: none; }
+    .meta-item strong { display: block; font-size: 0.75rem; color: var(--text-light); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.15em; }
+    .meta-item span { font-weight: 700; color: var(--brand-dark); font-size: 1.15rem; }
+
+    /* --- LAYOUT --- */
+    .content-section {
+      max-width: 900px;
+      margin: 120px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      margin-bottom: 48px;
+      color: var(--brand-dark);
+      letter-spacing: -0.02em;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 6px;
+      background: var(--brand-primary);
+      margin-top: 16px;
+      border-radius: 10px;
+    }
+
+    /* --- PROBLEM CARDS --- */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .card {
+      background: var(--bg-soft);
+      padding: 48px;
+      border-radius: 32px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover { transform: translateY(-8px); border-color: var(--brand-accent); }
+    
+    .problem-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+    }
+
+    .icon-fail { 
+        color: #ef4444; 
+        background: #fee2e2;
+        width: 24px; 
+        height: 24px; 
+        display: flex; 
+        align-items: center; 
+        justify-content: center; 
+        border-radius: 50%; 
+        font-weight: 800; 
+        font-size: 0.8rem; 
+        flex-shrink: 0;
+    }
+
+    /* --- STRATEGY BLOCKS --- */
+    .strategy-card {
+      background: var(--white);
+      border-left: 8px solid var(--brand-primary);
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      border-radius: 0 24px 24px 0;
+      margin-bottom: 32px;
+    }
+
+    .strategy-card h3 { margin-bottom: 16px; font-size: 1.5rem; color: var(--brand-dark); }
+
+    /* --- IMPACT STATS --- */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .stat-box {
+      background: #f0f7ff;
+      padding: 48px 24px;
+      text-align: center;
+      border-radius: 32px;
+      border: 1px solid #dbeafe;
+    }
+
+    .stat-box .label {
+      display: block;
+      font-weight: 800;
+      color: var(--brand-primary);
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      background: var(--brand-dark);
+      color: var(--white);
+      padding: 100px 20px;
+      text-align: center;
+    }
+
+   /* --- STRATEGY DEEP DIVE --- */
+  .process-section {
+    background: #0f172a;
+    color: white;
+    padding: 100px 0;
+    margin: 80px 0;
+  }
+
+  .grid-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .ux-logic-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 24px;
+    margin-bottom: 20px;
+  }
+
+  .ux-logic-card h4 {
+    color: var(--brand-accent);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  .logic-description {
+    font-size: 1.1rem;
+    font-weight: 400;
+    opacity: 0.9;
+  }
+
+  /* Mockup Placeholder */
+  .visual-placeholder {
+    background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+    border-radius: 32px;
+    aspect-ratio: 16/10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .visual-placeholder span {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .browser-dots {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 8px;
+  }
+  .dot-s { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+    @media (max-width: 768px) {
+      .problem-grid { grid-template-columns: 1fr; }
+      .meta-grid { grid-template-columns: 1fr 1fr; }
+      .hero { padding: 120px 20px 140px; }
+      .back-nav { top: 20px; left: 20px; }
+      .btn-back { padding: 10px 20px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="back-nav" id="backNav">
+    <a href="index.html" class="btn-back">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Back to Portfolio
+    </a>
+  </nav>
+
+  <header class="hero">
+    <span class="hero-label">Enterprise UX Case Study</span>
+    <h1>RFX Platform Redesign</h1>
+    <p>Reimagining high-stakes pricing and bid workflows to eliminate data fatigue and drive operational excellence.</p>
+  </header>
+
+  <div class="meta-container">
+    <div class="meta-grid">
+      <div class="meta-item"><strong>Role</strong><span>UI/UX Lead</span></div>
+      <div class="meta-item"><strong>Company</strong><span>Marlabs</span></div>
+      <div class="meta-item"><strong>Duration</strong><span>4 Months</span></div>
+      <div class="meta-item"><strong>Environment</strong><span>Salesforce</span></div>
+    </div>
+  </div>
+
+  <section class="content-section">
+    <h2 class="section-title">The Challenge</h2>
+    <p>The legacy RFX platform acted as a massive data repository that lacked role-specific intelligence. My goal was to transform this into a workflow-driven tool that prioritized human decision-making.</p>
+    
+    <div class="problem-grid">
+      <div class="card">
+        <h3 style="margin-bottom: 24px;">The Usability Gap</h3>
+        <div class="problem-item"><span class="icon-fail">×</span><span>Overwhelming data presentation on single screens</span></div>
+        <div class="problem-item"><span class="icon-fail">×</span><span>Navigation that didn't match real user workflows</span></div>
+        <div class="problem-item"><span class="icon-fail">×</span><span>High cognitive load during pricing stages</span></div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom: 24px;">Organizational Pain</h3>
+        <div class="problem-item"><span class="icon-fail">×</span><span>Frequent user errors and bid inaccuracies</span></div>
+        <div class="problem-item"><span class="icon-fail">×</span><span>Heavy dependency on support teams</span></div>
+        <div class="problem-item"><span class="icon-fail">×</span><span>No personalization for specialized user roles</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <h2 class="section-title">Core Strategy</h2>
+    <div class="strategy-card">
+      <h3>Role-Based Experiences</h3>
+      <p>I designed personalized views for Sales, Pricing, and Product users so each role sees only relevant information and actions.</p>
+    </div>
+    <div class="strategy-card">
+      <h3>Progressive Disclosure</h3>
+      <p>Reduced cognitive load by revealing complex data only when needed through expandable rows and contextual actions.</p>
+    </div>
+    <div class="strategy-card">
+      <h3>Navigation Re-engineering</h3>
+      <p>Replaced confusing legacy navigation with a clearer hierarchy aligned to real business cycles.</p>
+    </div>
+  </section>
+
+  <section class="process-section">
+  <div class="grid-container">
+    <div>
+      <h2 style="font-size: 2.5rem; margin-bottom: 30px; font-family: 'Plus Jakarta Sans';">Strategic <br><span style="color:var(--brand-accent)">Redesign</span></h2>
+      <p style="opacity: 0.7; margin-bottom: 40px;">Since the legacy platform was a closed proprietary system, I focused my documentation on the structural evolution of the user experience.</p>
+      
+      <div class="ux-logic-card">
+        <h4>The Legacy Friction</h4>
+        <p class="logic-description">Users faced "Data Gravity"—where 40+ unformatted Salesforce fields forced manual searching for pricing variables.</p>
+      </div>
+
+      <div class="ux-logic-card">
+        <h4>The UX Solution</h4>
+        <p class="logic-description">Implemented <strong>Role-Based Filtering</strong> and <strong>Progressive Disclosure</strong> to reduce on-screen noise by 65%.</p>
+      </div>
+    </div>
+
+    <div class="visual-placeholder">
+      <div class="browser-dots"><div class="dot-s"></div><div class="dot-s"></div><div class="dot-s"></div></div>
+      <img src="assets/rfx_screenshot.png" style="width: 85%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.4);" alt="New Dashboard Design">
+      <span style="margin-top: 20px;">[ Final High-Fidelity Redesign ]</span>
+    </div>
+  </div>
+</section>
+
+  <section class="content-section">
+    <h2 class="section-title">Business Impact</h2>
+    <div class="impact-grid">
+      <div class="stat-box">
+        <span class="label">Efficiency</span>
+        <p>Faster Task Completion</p>
+      </div>
+      <div class="stat-box">
+        <span class="label">Precision</span>
+        <p>Reduced Error Rate</p>
+      </div>
+      <div class="stat-box">
+        <span class="label">Validation</span>
+        <p>Stakeholder Approval</p>
+      </div>
+      <div class="stat-box">
+        <span class="label">Future-Proof</span>
+        <p>Scalable Design System</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p style="font-weight: 800; font-size: 1.5rem; margin-bottom: 12px; letter-spacing: -0.02em;">Vipin K Varghese</p>
+    <p style="opacity: 0.6; font-size: 0.95rem; font-weight: 300;">UI/UX Lead Designer</p>
+  </footer>
+
+  <script>
+    window.onscroll = function() {
+      const nav = document.getElementById("backNav");
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        nav.classList.add("scrolled");
+      } else {
+        nav.classList.remove("scrolled");
+      }
+    };
+  </script>
+
+</body>
+</html>
