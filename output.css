@@ -1443,3 +1443,8 @@ video {
 
 .my-img{    position: sticky;
     top: 90px; height: fit-content;}
+
+    @media (max-width: 1024px) {
+      .my-img{    position: relative;
+    top: auto; height: fit-content;}
+    }
