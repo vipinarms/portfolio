@@ -1269,7 +1269,7 @@ video {
 
 .group:hover .group-hover\:bg-lime-300 {
   --tw-bg-opacity: 1;
-  background-color: rgb(231 171 255);
+  background-color: rgb(179 194 245);
 }
 
 @media (min-width: 640px) {
@@ -1460,7 +1460,7 @@ video {
 }
 
 .skill-card {
-    background: #fff;
+   
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
