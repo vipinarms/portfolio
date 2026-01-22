@@ -36,3 +36,24 @@ window.addEventListener('scroll', () => {
         navLink.classList.add('bg-white', 'shadow-sm', 'bg-opacity-50', 'dark:border', 'dark:border-white/30', "dark:bg-transparent");
     }
 })
+
+
+function openVideo(videoUrl) {
+    const modal = document.getElementById('videoModal');
+    const iframe = document.getElementById('modalVideo');
+    
+    // Set the video source
+    iframe.src = videoUrl;
+    
+    // Show the modal
+    modal.style.display = 'flex';
+}
+
+function closeVideo() {
+    const modal = document.getElementById('videoModal');
+    const iframe = document.getElementById('modalVideo');
+    
+    // Hide modal and stop video playback
+    modal.style.display = 'none';
+    iframe.src = "";
+}
