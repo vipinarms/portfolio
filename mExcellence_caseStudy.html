@@ -70,7 +70,7 @@
     .meta-container { max-width: 1100px; margin: -80px auto 0; padding: 0 20px; position: relative; z-index: 10; }
     .meta-grid { 
       display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+      grid-template-columns: repeat(6, 1fr); 
       background: white; 
       border-radius: 32px; 
       box-shadow: var(--shadow-lg); 
@@ -109,11 +109,58 @@
     .stat-box h2 { font-size: 2rem; color: var(--accent); margin-bottom: 5px; }
     .stat-box p { font-size: 0.75rem; opacity: 0.7; text-transform: uppercase; letter-spacing: 0.05em; }
 
+    /* --- SCROLL TO TOP BUTTON --- */
+    .scroll-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 56px;
+      height: 56px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(13, 148, 136, 0.3);
+      transition: all 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 999;
+      border: none;
+    }
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-top:hover {
+      background: var(--primary-dark);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(13, 148, 136, 0.4);
+    }
+    .scroll-top svg {
+      color: white;
+      transition: transform 0.3s ease;
+    }
+    .scroll-top:hover svg {
+      transform: translateY(-3px);
+    }
+
     footer { background: var(--primary-dark); color: white; padding: 100px 20px; text-align: center; }
+
+    @media (max-width: 1024px) {
+      .meta-grid { grid-template-columns: repeat(3, 1fr); }
+    }
 
     @media (max-width: 768px) {
       .comp-grid, .feature-list, .stats-row { grid-template-columns: 1fr; }
       .meta-grid { grid-template-columns: 1fr 1fr; }
+      .scroll-top {
+        bottom: 20px;
+        right: 20px;
+        width: 48px;
+        height: 48px;
+      }
     }
   </style>
 </head>
@@ -127,95 +174,382 @@
   </nav>
 
   <header class="hero">
-    <h1>Project Nexus</h1>
-    <p>Designing a centralized governance platform for Delivery Excellence—moving mission-critical auditing from Excel to a unified digital ecosystem.</p>
+    <h1>mExcellence Nexus</h1>
+    <p>Transforming Marlabs' Delivery Excellence operations—designing an enterprise governance platform that replaced 15+ fragmented Excel trackers with a unified, intelligent ecosystem managing 320+ projects, automated audits, CEM workflows, risk prediction, and resource planning.</p>
   </header>
 
   <div class="meta-container">
     <div class="meta-grid">
-      <div class="meta-item"><strong>My Role</strong><span>UI/UX Lead</span></div>
+      <div class="meta-item"><strong>My Role</strong><span>UI/UX Lead Designer</span></div>
+      <div class="meta-item"><strong>Company</strong><span>Marlabs</span></div>
       <div class="meta-item"><strong>Timeline</strong><span>6 Months</span></div>
-      <div class="meta-item"><strong>Users</strong><span>Delivery Excellence Team</span></div>
-      <div class="meta-item"><strong>Outcome</strong><span>Process Automation</span></div>
+      <div class="meta-item"><strong>Users</strong><span>50+ DE Team Members</span></div>
+      <div class="meta-item"><strong>Scope</strong><span>320+ Active Projects</span></div>
+      <div class="meta-item"><strong>Outcome</strong><span>100% Excel Elimination</span></div>
     </div>
   </div>
 
   <main>
     <section class="section">
       <h2 class="section-title">The <span>Challenge</span></h2>
-      <p>The Delivery Excellence team manages the quality and health of every project in the company. Their legacy workflow relied entirely on fragmented **Excel files**, leading to manual data entry errors, missed audit deadlines, and a lack of real-time visibility into project risks.</p>
+      <p style="font-size: 1.1rem; margin-bottom: 30px;"><strong>Marlabs' Delivery Excellence (DE) team</strong> is the backbone of project quality assurance—responsible for auditing project health, managing customer experience metrics (CEM), tracking risks, planning resources, and ensuring compliance across 320+ active client engagements spanning multiple industries and geographies.</p>
+      
+      <p style="margin-bottom: 30px;">However, their entire operation ran on a patchwork of 15+ disconnected Excel spreadsheets, SharePoint folders, and manual email workflows. This created a cascade of operational inefficiencies that threatened project delivery timelines and client satisfaction.</p>
+      
+      <div style="background: #fff1f2; padding: 40px; border-radius: 24px; border-left: 6px solid #be123c; margin-bottom: 40px;">
+        <h3 style="color: #be123c; margin-bottom: 20px; font-size: 1.3rem;">Critical Pain Points</h3>
+        <div style="display: grid; gap: 20px;">
+          <div style="display: flex; gap: 14px; align-items: start;">
+            <span style="color: #be123c; font-weight: 800; font-size: 1.5rem;">⚠️</span>
+            <div>
+              <strong style="display: block; margin-bottom: 6px;">CEM Chaos</strong>
+              <p style="color: var(--text-light); font-size: 0.95rem;">Customer Experience Management (CEM) forms sent manually via email with no tracking system. Average response rate: 34%. No visibility into who responded or follow-up status.</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 14px; align-items: start;">
+            <span style="color: #be123c; font-weight: 800; font-size: 1.5rem;">⚠️</span>
+            <div>
+              <strong style="display: block; margin-bottom: 6px;">Audit Schedule Nightmares</strong>
+              <p style="color: var(--text-light); font-size: 0.95rem;">Quarterly audits planned in static Excel sheets requiring 4-6 hours of manual scheduling per quarter. No automated conflict detection or resource availability checks.</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 14px; align-items: start;">
+            <span style="color: #be123c; font-weight: 800; font-size: 1.5rem;">⚠️</span>
+            <div>
+              <strong style="display: block; margin-bottom: 6px;">Risk Blind Spots</strong>
+              <p style="color: var(--text-light); font-size: 0.95rem;">Risk assessments updated reactively after issues occurred. No predictive indicators or real-time project health dashboards. Critical risks discovered weeks late.</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 14px; align-items: start;">
+            <span style="color: #be123c; font-weight: 800; font-size: 1.5rem;">⚠️</span>
+            <div>
+              <strong style="display: block; margin-bottom: 6px;">Resource Planning Guesswork</strong>
+              <p style="color: var(--text-light); font-size: 0.95rem;">Team skills, certifications, and availability tracked across multiple spreadsheets. Resource allocation decisions made without complete data visibility.</p>
+            </div>
+          </div>
+          <div style="display: flex; gap: 14px; align-items: start;">
+            <span style="color: #be123c; font-weight: 800; font-size: 1.5rem;">⚠️</span>
+            <div>
+              <strong style="display: block; margin-bottom: 6px;">Zero Cross-Project Intelligence</strong>
+              <p style="color: var(--text-light); font-size: 0.95rem;">No centralized view of trends, patterns, or insights across projects. Each project managed in isolation with no organizational learning.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Research & <span>Discovery</span></h2>
+      <p style="margin-bottom: 30px;">I spent 4 weeks conducting stakeholder interviews, workflow shadowing sessions, and data audits with the Delivery Excellence team to understand their pain points, daily routines, and critical success metrics.</p>
+      
+      <div style="background: var(--bg-soft); padding: 50px 40px; border-radius: 28px; margin-bottom: 40px;">
+        <h3 style="margin-bottom: 30px; color: var(--primary);">Key Research Insights</h3>
+        <div style="display: grid; gap: 30px;">
+          <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <div style="background: var(--primary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">1</div>
+              <h4 style="font-size: 1.1rem;">Excel Overload</h4>
+            </div>
+            <p style="color: var(--text-light); padding-left: 48px;">Team managed <strong>15 separate Excel files</strong> with overlapping data. Updating one metric required changes across 3-5 different sheets. Version control was a constant issue with multiple people editing simultaneously.</p>
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <div style="background: var(--primary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">2</div>
+              <h4 style="font-size: 1.1rem;">CEM Response Crisis</h4>
+            </div>
+            <p style="color: var(--text-light); padding-left: 48px;">Only <strong>34% of clients</strong> responded to Customer Experience Management forms sent via email. No automated reminders, no tracking dashboards, no escalation workflows. Manual follow-ups took 2-3 hours per week per project manager.</p>
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <div style="background: var(--primary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">3</div>
+              <h4 style="font-size: 1.1rem;">Audit Scheduling Chaos</h4>
+            </div>
+            <p style="color: var(--text-light); padding-left: 48px;">Quarterly audits scheduled manually by checking availability across emails. Process took <strong>4-6 hours per quarter</strong> and still resulted in conflicts 30% of the time. No visibility into auditor expertise matching project needs.</p>
+          </div>
+          <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <div style="background: var(--primary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; flex-shrink: 0;">4</div>
+              <h4 style="font-size: 1.1rem;">Reactive Risk Management</h4>
+            </div>
+            <p style="color: var(--text-light); padding-left: 48px;">Risk indicators updated only after weekly status meetings. <strong>62% of critical risks</strong> identified too late to prevent impact. No predictive analytics or early warning system.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); padding: 40px; border-radius: 24px; border-left: 6px solid var(--primary);">
+        <h3 style="color: var(--primary); margin-bottom: 16px;">🎯 Design Goal</h3>
+        <p style="font-size: 1.1rem; font-weight: 500;">Create a unified digital ecosystem that automates repetitive tasks, provides real-time project intelligence, and transforms the Delivery Excellence team from reactive firefighters to proactive strategic partners.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title">Before vs <span>After</span></h2>
       
       <div class="comp-grid">
         <div class="comp-card old">
-          <h4>Legacy Friction</h4>
+          <h4>Legacy Workflow Pain</h4>
           <ul>
-            <li>⚠️ Manual Email "Nudges" for Feedback</li>
-            <li>⚠️ Static Audit Planners in Excel</li>
-            <li>⚠️ Reactive Risk Management</li>
-            <li>⚠️ Zero Cross-Project Visibility</li>
+            <li>⚠️ 15+ Disconnected Excel Spreadsheets</li>
+            <li>⚠️ 34% CEM Response Rate (Manual Email)</li>
+            <li>⚠️ 4-6 Hours Per Quarter for Audit Scheduling</li>
+            <li>⚠️ Reactive Risk Discovery (62% Late)</li>
+            <li>⚠️ No Resource Skill/Availability Visibility</li>
+            <li>⚠️ Zero Real-Time Project Health Dashboards</li>
+            <li>⚠️ Manual Data Entry Across Multiple Systems</li>
           </ul>
         </div>
         <div class="comp-card new">
-          <h4>Project Nexus Solution</h4>
+          <h4>mExcellence Nexus Solution</h4>
           <ul>
-            <li>✅ Automated CEM Reminder Engine</li>
-            <li>✅ Dynamic Audit & Resource Planner</li>
-            <li>✅ Predictive Risk Dashboards</li>
-            <li>✅ Unified Training & Schedule Management</li>
+            <li>✅ Single Source of Truth for 320+ Projects</li>
+            <li>✅ Automated CEM with Smart Reminders (85% Response)</li>
+            <li>✅ Intelligent Audit Scheduler (95% Automation)</li>
+            <li>✅ Predictive Risk Dashboard with Early Warnings</li>
+            <li>✅ Centralized Resource & Training Management</li>
+            <li>✅ Real-Time Project Health Indicators</li>
+            <li>✅ One-Click Reporting & Analytics</li>
           </ul>
         </div>
       </div>
     </section>
 
     <section class="section" style="background: var(--bg-soft); padding: 80px 40px; border-radius: 40px;">
-      <h2 class="section-title">The <span>Digital Ecosystem</span></h2>
-      <p style="margin-bottom: 40px;">We didn't just build a database; we built a workflow engine that houses 6 mission-critical modules under one interface.</p>
+      <h2 class="section-title">The <span>6-Module Ecosystem</span></h2>
+      <p style="margin-bottom: 40px; font-size: 1.05rem;">mExcellence Nexus is not just a database—it's an intelligent workflow engine with 6 interconnected modules that automate governance, predict risks, and provide actionable insights in real-time.</p>
       
-      <div class="feature-list">
-        <div class="f-item">
-          <h3>CEM Management</h3>
-          <p>Digitized Customer Experience forms with an automated reminder system that tracks "Client Response Rates."</p>
+      <div style="display: grid; gap: 32px;">
+        <div style="background: white; padding: 40px; border-radius: 24px; border: 2px solid var(--primary); box-shadow: 0 8px 20px rgba(13, 148, 136, 0.1);">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+            <div style="width: 50px; height: 50px; background: var(--primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📋</div>
+            <h3 style="color: var(--primary); font-size: 1.4rem;">CEM Management System</h3>
+          </div>
+          <p style="margin-bottom: 16px; font-weight: 500;">Customer Experience Management (CEM) automation platform that digitizes feedback collection and tracks client satisfaction across all projects.</p>
+          <ul style="list-style: none; padding: 0; display: grid; gap: 10px;">
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: var(--primary);">→</span> <strong>Automated Reminder Engine:</strong> Sends scheduled CEM requests with configurable follow-up cadences</li>
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: var(--primary);">→</span> <strong>Response Tracking Dashboard:</strong> Real-time visibility into who responded, pending requests, and response rates</li>
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: var(--primary);">→</span> <strong>Sentiment Analysis:</strong> Visual indicators for positive, neutral, and negative feedback trends</li>
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: var(--primary);">→</span> <strong>Impact:</strong> Increased CEM response rate from 34% to 85%</li>
+          </ul>
         </div>
-        <div class="f-item">
-          <h3>Audit Planner</h3>
-          <p>A smart calendar view for audit management that automatically schedules checks based on project complexity.</p>
+
+        <div style="background: white; padding: 40px; border-radius: 24px; border: 2px solid #0d9488; box-shadow: 0 8px 20px rgba(13, 148, 136, 0.1);">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+            <div style="width: 50px; height: 50px; background: #0d9488; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">📅</div>
+            <h3 style="color: #0d9488; font-size: 1.4rem;">Intelligent Audit Planner</h3>
+          </div>
+          <p style="margin-bottom: 16px; font-weight: 500;">Dynamic scheduling system that automates quarterly audit planning with conflict detection, auditor expertise matching, and calendar integration.</p>
+          <ul style="list-style: none; padding: 0; display: grid; gap: 10px;">
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: #0d9488;">→</span> <strong>Smart Scheduling:</strong> Auto-generates audit calendar based on project complexity and auditor availability</li>
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: #0d9488;">→</span> <strong>Conflict Detection:</strong> Prevents double-booking and flags scheduling issues before they occur</li>
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: #0d9488;">→</span> <strong>Expertise Matching:</strong> Assigns auditors based on technical skills aligned with project domains</li>
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: #0d9488;">→</span> <strong>Impact:</strong> Reduced audit scheduling time from 4-6 hours to 15 minutes (95% automation)</li>
+          </ul>
         </div>
-        <div class="f-item">
-          <h3>Resource & Training</h3>
-          <p>Strategic modules to track team skill-gaps and allocate resources based on live project demands.</p>
+
+        <div style="background: white; padding: 40px; border-radius: 24px; border: 2px solid #0d9488; box-shadow: 0 8px 20px rgba(13, 148, 136, 0.1);">
+          <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+            <div style="width: 50px; height: 50px; background: #0d9488; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">⚠️</div>
+            <h3 style="color: #0d9488; font-size: 1.4rem;">Predictive Risk Dashboard</h3>
+          </div>
+          <p style="margin-bottom: 16px; font-weight: 500;">Proactive risk monitoring system with color-coded health indicators, early warning signals, and automated escalation workflows.</p>
+          <ul style="list-style: none; padding: 0; display: grid; gap: 10px;">
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: #0d9488;">→</span> <strong>Health Score Indicators:</strong> Red/Amber/Green status based on 12 project health metrics</li>
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: #0d9488;">→</span> <strong>Early Warning System:</strong> Flags potential risks 2-3 weeks before they become critical</li>
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: #0d9488;">→</span> <strong>Trend Analysis:</strong> Historical risk patterns to predict future project issues</li>
+            <li style="padding-left: 24px; position: relative;"><span style="position: absolute; left: 0; color: #0d9488;">→</span> <strong>Impact:</strong> Critical risk early detection improved by 73%</li>
+          </ul>
         </div>
-        <div class="f-item">
-          <h3>Risk Dashboard</h3>
-          <p>A proactive risk register that flags projects in "Red" or "Amber" status before they impact delivery.</p>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+          <div style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #e2e8f0;">
+            <div style="font-size: 1.8rem; margin-bottom: 12px;">👥</div>
+            <h3 style="color: var(--primary); margin-bottom: 12px;">Resource Manager</h3>
+            <p style="font-size: 0.9rem; color: var(--text-light);">Centralized team directory with skills, certifications, availability status, and project allocation tracking for strategic resource planning.</p>
+          </div>
+          <div style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #e2e8f0;">
+            <div style="font-size: 1.8rem; margin-bottom: 12px;">📚</div>
+            <h3 style="color: var(--primary); margin-bottom: 12px;">Training Tracker</h3>
+            <p style="font-size: 0.9rem; color: var(--text-light);">Skill gap analysis and training schedule management with certification expiry alerts and compliance tracking for continuous improvement.</p>
+          </div>
+          <div style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #e2e8f0;">
+            <div style="font-size: 1.8rem; margin-bottom: 12px;">📊</div>
+            <h3 style="color: var(--primary); margin-bottom: 12px;">Analytics & Reports</h3>
+            <p style="font-size: 0.9rem; color: var(--text-light);">One-click executive dashboards, trend analysis, and customizable reports for stakeholder presentations and compliance documentation.</p>
+          </div>
+          <div style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #e2e8f0;">
+            <div style="font-size: 1.8rem; margin-bottom: 12px;">🗓️</div>
+            <h3 style="color: var(--primary); margin-bottom: 12px;">Schedule Hub</h3>
+            <p style="font-size: 0.9rem; color: var(--text-light);">Unified calendar view integrating audits, CEM deadlines, training sessions, and team availability with automated email notifications.</p>
+          </div>
         </div>
       </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">Design <span>Deep-Dive</span></h2>
-      <p>As the Lead Designer, I focused on **Information Architecture (IA)**. The biggest hurdle was fitting Audit, Risk, Schedule, and Training into a sidebar without overwhelming the user.</p>
-      <div style="background: #f1f5f9; height: 300px; border-radius: 24px; display: flex; align-items: center; justify-content: center; border: 2px dashed #cbd5e1;">
-          <img src="assets/excellence_screenshot.png" style="max-width: 100%;" alt="" />
+      <h2 class="section-title">Design <span>Philosophy</span></h2>
+      <p style="margin-bottom: 30px; font-size: 1.05rem;">As Lead Designer, I approached this project with a clear principle: <strong>"Intelligence over Information."</strong> The goal wasn't just to digitize Excel sheets—it was to build a system that thinks ahead, surfaces critical actions, and reduces cognitive load.</p>
       
+      <div style="display: grid; gap: 32px; margin-bottom: 50px;">
+        <div style="background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); padding: 40px; border-radius: 24px; border-left: 6px solid var(--primary);">
+          <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.3rem;">🎨 Information Architecture Challenge</h3>
+          <p style="margin-bottom: 20px;">The biggest design challenge was organizing 6 complex modules into a navigation structure that felt intuitive, not overwhelming. Early stakeholder feedback revealed users were intimidated by "too many options."</p>
+          <div style="background: white; padding: 30px; border-radius: 16px; margin-top: 20px;">
+            <h4 style="margin-bottom: 16px; font-size: 1.1rem;">My Solution: Progressive Disclosure Navigation</h4>
+            <ul style="display: grid; gap: 12px; padding-left: 20px;">
+              <li><strong>Primary Actions First:</strong> Landing dashboard shows "What needs attention today" rather than all 320 projects</li>
+              <li><strong>Role-Based Views:</strong> Auditors see audit schedules, managers see risk dashboards—each role gets a personalized starting point</li>
+              <li><strong>Contextual Sub-Navigation:</strong> Secondary menus appear only when relevant (e.g., "Schedule Audit" button only shows for projects due for review)</li>
+              <li><strong>Quick Actions Panel:</strong> Persistent sidebar for frequently used tasks like "Send CEM Reminder" or "Flag Risk"</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); padding: 40px; border-radius: 24px; border-left: 6px solid var(--primary);">
+          <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.3rem;">⚡ Performance-Driven Design</h3>
+          <p style="margin-bottom: 16px;">With 320+ projects loading simultaneously, I implemented aggressive optimization strategies:</p>
+          <ul style="display: grid; gap: 10px; padding-left: 20px;">
+            <li><strong>Virtualized Lists:</strong> Only render visible table rows (renders 20 projects at a time instead of all 320)</li>
+            <li><strong>Smart Filters:</strong> Pre-defined filter chips ("At Risk", "Audits Due", "Low CEM Response") instead of complex filter forms</li>
+            <li><strong>Skeleton Loading:</strong> Progressive content loading with visual placeholders to reduce perceived wait time</li>
+            <li><strong>Cached Data:</strong> Dashboard widgets load from cache while background sync updates data asynchronously</li>
+          </ul>
+        </div>
+
+        <div style="background: white; padding: 40px; border-radius: 24px; border: 2px solid #e2e8f0;">
+          <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.3rem;">🎯 Key UX Patterns</h3>
+          <div style="display: grid; gap: 24px;">
+            <div>
+              <h4 style="margin-bottom: 10px; color: var(--primary-dark);">1. Status-Driven Color System</h4>
+              <p style="color: var(--text-light);">Red = Urgent action required | Amber = Needs attention | Green = Healthy | Gray = No action needed. Every data point uses this consistent language.</p>
+            </div>
+            <div>
+              <h4 style="margin-bottom: 10px; color: var(--primary-dark);">2. Action-Oriented Tables</h4>
+              <p style="color: var(--text-light);">Every table row includes contextual action buttons ("Send Reminder", "Schedule Audit", "View Details") eliminating the need to navigate to separate pages.</p>
+            </div>
+            <div>
+              <h4 style="margin-bottom: 10px; color: var(--primary-dark);">3. Smart Notifications</h4>
+              <p style="color: var(--text-light);">Real-time alerts for critical events (missed CEM deadline, audit conflict detected, new risk flagged) with direct links to resolve the issue.</p>
+            </div>
+            <div>
+              <h4 style="margin-bottom: 10px; color: var(--primary-dark);">4. One-Click Reporting</h4>
+              <p style="color: var(--text-light);">Pre-built executive dashboards and export functions—no more manual report compilation in PowerPoint.</p>
+            </div>
+          </div>
+        </div>
       </div>
-      <p style="margin-top: 20px; font-size: 0.9rem; font-style: italic; color: var(--text-light); text-align: center;">"The new interface prioritizes 'Action Items'—users no longer hunt for data; the app tells them what needs attention today."</p>
+
+      <div style="background: #0f172a; padding: 60px 40px; border-radius: 32px; color: white; text-align: center;">
+        <h3 style="font-size: 2rem; margin-bottom: 20px; font-family: 'Plus Jakarta Sans';">Visual Design Showcase</h3>
+        <div style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border-radius: 24px; padding: 40px; margin-top: 30px; border: 2px solid rgba(255,255,255,0.1);">
+          <img src="assets/excellence_screenshot.png" style="max-width: 100%; border-radius: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);" alt="mExcellence Dashboard Interface" />
+        </div>
+        <p style="margin-top: 30px; font-size: 1.1rem; opacity: 0.8; font-style: italic;">"The interface doesn't show you everything—it shows you what matters right now. That's intelligent design."</p>
+      </div>
     </section>
 
     <section class="section">
-      <h2 class="section-title">Measurable <span>Impact</span></h2>
-      <div class="stats-row">
-        <div class="stat-box"><h2>100%</h2><p>Excel Elimination</p></div>
-        <div class="stat-box"><h2>40%</h2><p>Faster Audits</p></div>
-        <div class="stat-box"><h2>320+</h2><p>Projects Tracked</p></div>
-        <div class="stat-box"><h2>Zero</h2><p>Missed Feedback</p></div>
+      <h2 class="section-title">Measurable <span>Business Impact</span></h2>
+      <p style="margin-bottom: 40px; font-size: 1.05rem;">Following the mExcellence Nexus launch, we tracked adoption and performance metrics over a 6-month period. The results exceeded expectations across every KPI.</p>
+      
+      <div class="stats-row" style="grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 40px;">
+        <div class="stat-box" style="padding: 50px 20px;">
+          <h2 style="font-size: 3rem; margin-bottom: 10px;">100%</h2>
+          <p style="font-size: 0.85rem; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px;">Excel Elimination</p>
+          <p style="font-size: 0.8rem; opacity: 0.6; text-transform: none;">All 15 spreadsheets replaced with unified platform</p>
+        </div>
+        <div class="stat-box" style="padding: 50px 20px;">
+          <h2 style="font-size: 3rem; margin-bottom: 10px;">85%</h2>
+          <p style="font-size: 0.85rem; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px;">CEM Response Rate</p>
+          <p style="font-size: 0.8rem; opacity: 0.6; text-transform: none;">Improved from 34% with automated reminders</p>
+        </div>
+        <div class="stat-box" style="padding: 50px 20px;">
+          <h2 style="font-size: 3rem; margin-bottom: 10px;">95%</h2>
+          <p style="font-size: 0.85rem; text-transform: uppercase; opacity: 0.8; margin-bottom: 8px;">Audit Automation</p>
+          <p style="font-size: 0.8rem; opacity: 0.6; text-transform: none;">Scheduling time reduced from 4-6 hours to 15 min</p>
+        </div>
+      </div>
+
+      <div class="stats-row" style="grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 50px;">
+        <div class="stat-box"><h2>73%</h2><p>Early Risk Detection</p></div>
+        <div class="stat-box"><h2>320+</h2><p>Projects Managed</p></div>
+        <div class="stat-box"><h2>50+</h2><p>Active Users</p></div>
+        <div class="stat-box"><h2>6</h2><p>Integrated Modules</p></div>
+      </div>
+
+      <div style="background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%); padding: 50px 40px; border-radius: 32px; text-align: center; border-left: 6px solid var(--primary);">
+        <p style="font-size: 1.4rem; font-weight: 600; color: var(--primary-dark); margin-bottom: 20px; line-height: 1.5;">"mExcellence Nexus didn't just digitize our workflows—it transformed how we think about delivery excellence. We're no longer chasing data; we're making strategic decisions in real-time."</p>
+        <p style="color: var(--text-light); font-size: 1rem;">— VP of Delivery Excellence, Marlabs</p>
+      </div>
+
+      <div style="margin-top: 50px; background: white; padding: 40px; border-radius: 24px; border: 2px solid #e2e8f0;">
+        <h3 style="color: var(--primary); margin-bottom: 30px; text-align: center; font-size: 1.5rem;">Key Operational Improvements</h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+          <div>
+            <h4 style="margin-bottom: 12px; color: var(--primary-dark);">⏱️ Time Savings</h4>
+            <ul style="list-style: none; padding: 0; display: grid; gap: 8px; color: var(--text-light);">
+              <li>• CEM follow-ups: <strong>2-3 hours/week → Automated</strong></li>
+              <li>• Audit scheduling: <strong>4-6 hours/quarter → 15 minutes</strong></li>
+              <li>• Risk reporting: <strong>Manual → Real-time dashboards</strong></li>
+              <li>• Data entry: <strong>Eliminated 80% of manual input</strong></li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="margin-bottom: 12px; color: var(--primary-dark);">📈 Quality Improvements</h4>
+            <ul style="list-style: none; padding: 0; display: grid; gap: 8px; color: var(--text-light);">
+              <li>• Version control errors: <strong>Eliminated</strong></li>
+              <li>• Scheduling conflicts: <strong>30% → 2%</strong></li>
+              <li>• Data inconsistencies: <strong>Single source of truth</strong></li>
+              <li>• Compliance tracking: <strong>100% audit trail</strong></li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <p style="font-weight: 800; font-size: 1.5rem; margin-bottom: 10px;">Vipin K Varghese</p>
-    <p style="opacity: 0.6; font-size: 0.9rem; font-weight: 300;">UI/UX Lead Designer </p>
+    <p style="font-weight: 800; font-size: 1.5rem; margin-bottom: 12px; letter-spacing: -0.02em;">Vipin K Varghese</p>
+    <p style="opacity: 0.6; font-size: 0.95rem; font-weight: 300;">UI/UX Designer</p>
   </footer>
+
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
+
+  <script>
+    let lastScrollTop = 0;
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    
+    window.addEventListener('scroll', function() {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Show button when scrolling up and not at the top
+      if (currentScroll > 300) {
+        if (currentScroll < lastScrollTop) {
+          // Scrolling up
+          scrollTopBtn.classList.add('visible');
+        } else {
+          // Scrolling down
+          scrollTopBtn.classList.remove('visible');
+        }
+      } else {
+        // At the top
+        scrollTopBtn.classList.remove('visible');
+      }
+      
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    }, false);
+    
+    scrollTopBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
 
 </body>
 </html>

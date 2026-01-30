@@ -323,6 +323,44 @@
     gap: 8px;
   }
   .dot-s { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+
+    /* --- SCROLL TO TOP BUTTON --- */
+    .scroll-top {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      width: 56px;
+      height: 56px;
+      background: var(--brand-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+      transition: all 0.3s ease;
+      opacity: 0;
+      visibility: hidden;
+      z-index: 999;
+      border: none;
+    }
+    .scroll-top.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    .scroll-top:hover {
+      background: var(--brand-dark);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(37, 99, 235, 0.4);
+    }
+    .scroll-top svg {
+      color: white;
+      transition: transform 0.3s ease;
+    }
+    .scroll-top:hover svg {
+      transform: translateY(-3px);
+    }
+
     @media (max-width: 1024px) {
       .meta-grid { grid-template-columns: repeat(3, 1fr); }
     }
@@ -333,6 +371,12 @@
       .hero { padding: 120px 20px 140px; }
       .back-nav { top: 20px; left: 20px; }
       .btn-back { padding: 10px 20px; font-size: 0.8rem; }
+      .scroll-top {
+        bottom: 20px;
+        right: 20px;
+        width: 48px;
+        height: 48px;
+      }
     }
   </style>
 </head>
@@ -356,7 +400,7 @@
 
   <div class="meta-container">
     <div class="meta-grid">
-      <div class="meta-item"><strong>Role</strong><span>UI/UX Lead Designer</span></div>
+      <div class="meta-item"><strong>Role</strong><span>UI/UX Designer</span></div>
       <div class="meta-item"><strong>Client</strong><span>Bunge Global</span></div>
       <div class="meta-item"><strong>Industry</strong><span>Agribusiness</span></div>
       <div class="meta-item"><strong>Duration</strong><span>4 Months</span></div>
@@ -558,15 +602,51 @@
     <p style="opacity: 0.6; font-size: 0.95rem; font-weight: 300;">UI/UX Lead Designer</p>
   </footer>
 
+  <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="12" y1="19" x2="12" y2="5"></line>
+      <polyline points="5 12 12 5 19 12"></polyline>
+    </svg>
+  </button>
+
   <script>
-    window.onscroll = function() {
-      const nav = document.getElementById("backNav");
-      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-        nav.classList.add("scrolled");
+    let lastScrollTop = 0;
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const backNav = document.getElementById("backNav");
+    
+    window.addEventListener('scroll', function() {
+      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+      
+      // Handle back button scrolled state
+      if (currentScroll > 100) {
+        backNav.classList.add("scrolled");
       } else {
-        nav.classList.remove("scrolled");
+        backNav.classList.remove("scrolled");
       }
-    };
+      
+      // Show scroll-to-top button when scrolling up and not at the top
+      if (currentScroll > 300) {
+        if (currentScroll < lastScrollTop) {
+          // Scrolling up
+          scrollTopBtn.classList.add('visible');
+        } else {
+          // Scrolling down
+          scrollTopBtn.classList.remove('visible');
+        }
+      } else {
+        // At the top
+        scrollTopBtn.classList.remove('visible');
+      }
+      
+      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    }, false);
+    
+    scrollTopBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
   </script>
 
 </body>
