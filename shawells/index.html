@@ -263,7 +263,10 @@
     }
 
     .hero-visual::after {
-      background: linear-gradient(135deg, rgba(16, 42, 60, .08), rgba(16, 42, 60, .02)), url("https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1600&q=85") center/cover;
+      background-image: linear-gradient(135deg, rgba(16, 42, 60, .08), rgba(16, 42, 60, .02)), url("images/img1.jpg");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
       content: "";
       inset: -70px 0;
       position: absolute;
@@ -341,8 +344,11 @@
       overflow: hidden;
       padding: 48px 0;
       position: relative;
-      background: linear-gradient(90deg, rgba(10, 31, 46, .78), rgba(10, 31, 46, .16)), url("https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=2200&q=85") center/cover fixed;
+      background-image: linear-gradient(90deg, rgba(10, 31, 46, .78), rgba(10, 31, 46, .16)), url("images/img2.jpg");
+      background-position: center;
       background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
     }
 
     .parallax-banner::before {
@@ -381,16 +387,29 @@
     }
 
     /* Make the site black & white by default on hover-capable devices
-       and reveal the original colors when the user hovers or focuses a section. */
+       and reveal the original colors when the user hovers or focuses a section.
+       Exception: the products grid (`#products`) uses per-card reveal so each
+       `.product` shows color only when hovered. */
     @media (hover: hover) and (pointer: fine) and (min-width: 900px) {
-      header, main > section, footer {
+      header, main > section:not(#products), footer {
         filter: grayscale(100%) contrast(.95) saturate(.7);
         transition: filter 300ms ease, transform 300ms ease;
         will-change: filter;
       }
       header:hover, header:focus-within,
-      main > section:hover, main > section:focus-within,
+      main > section:not(#products):hover, main > section:not(#products):focus-within,
       footer:hover, footer:focus-within {
+        filter: none;
+      }
+
+      /* Products: keep the section itself neutral and apply grayscale to each card
+         so a single card reveals colour on hover without affecting the whole section. */
+      #products .product {
+        filter: grayscale(100%) contrast(.95) saturate(.7);
+        transition: filter 300ms ease;
+        will-change: filter;
+      }
+      #products .product:hover, #products .product:focus-within {
         filter: none;
       }
     }
@@ -479,6 +498,7 @@
     .product::before {
       background-position: center;
       background-size: cover;
+      background-repeat: no-repeat;
       content: "";
       inset: -55px 0;
       position: absolute;
@@ -499,15 +519,15 @@
     }
 
     .product:nth-child(1)::before {
-      background-image: url("https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1000&q=80");
+      background-image: url("images/img3.jpg");
     }
 
     .product:nth-child(2)::before {
-      background-image: url("https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=80");
+      background-image: url("images/img4.jpg");
     }
 
     .product:nth-child(3)::before {
-      background-image: url("https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1000&q=80");
+      background-image: url("images/img5.jpg");
     }
 
     .product h3 {
@@ -645,7 +665,10 @@
     }
 
     .feature-image::before {
-      background: linear-gradient(120deg, rgba(16, 42, 60, .1), rgba(16, 42, 60, .2)), url("https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1500&q=85") center/cover;
+      background-image: linear-gradient(120deg, rgba(16, 42, 60, .1), rgba(16, 42, 60, .2)), url("images/img6.jpg");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
       content: "";
       inset: -70px 0;
       position: absolute;
