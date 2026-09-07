@@ -382,7 +382,7 @@
 
     /* Make the site black & white by default on hover-capable devices
        and reveal the original colors when the user hovers or focuses a section. */
-    @media (hover: hover) and (pointer: fine) {
+    @media (hover: hover) and (pointer: fine) and (min-width: 900px) {
       header, main > section, footer {
         filter: grayscale(100%) contrast(.95) saturate(.7);
         transition: filter 300ms ease, transform 300ms ease;
