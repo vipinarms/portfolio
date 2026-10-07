@@ -1717,15 +1717,20 @@ a {
   }
 
   .property-highlights__list {
-    grid-template-columns: repeat(5, minmax(95px, 1fr));
+    /* grid-template-columns: repeat(5, minmax(95px, 1fr)); */
     overflow-x: auto;
     padding: 1px 1px 6px;
     scrollbar-width: thin;
+    display: block;
   }
 
+
   .property-highlights__list li {
-    min-height: 112px;
-  }
+    min-height: fit-content;
+    flex-direction: row;
+    align-items: center;  
+    justify-content: flex-start;
+    gap: 16px; margin-bottom: 10px; }
 
   .investment-reasons {
     padding: 48px 7% 40px;
