@@ -35,6 +35,9 @@ a {
   font: inherit;
 }
 
+.text-right{text-align:right}
+.text-left{text-align:left}
+
 .hero {
   position: relative;
   isolation: isolate;
@@ -298,6 +301,7 @@ a {
   font-family: "Termina Test Bold", sans-serif;
   font-size: 11px;
   letter-spacing: .045em;
+  margin-top: 5px;
 }
 
 .rupee-mark {
@@ -420,6 +424,12 @@ a {
 .amenities__shade {
   position: absolute;
   inset: 0;
+}
+
+.amenities,
+.property-showcase,
+.addresses__viewport {
+  touch-action: pan-y;
 }
 
 .amenities__image {
@@ -607,7 +617,7 @@ a {
 }
 
 .property-showcase {
-  padding: 0 5.6vw 64px;
+  padding: 84px 5.6vw;
   background: #fff;
   color: #090909;
 }
@@ -784,8 +794,11 @@ a {
   display: block;
   width: 82px;
   height: auto;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
+.prive-logo {
+    width: 150px;
+  }
 
 .property-details__kicker,
 .property-details__rera,
@@ -845,7 +858,7 @@ a {
 }
 
 .property-highlights h3 {
-  margin: 55px 0 6px;
+  margin: 40px 0 6px;
   font-family: "Termina Test Medium", sans-serif;
   font-size: 12px;
   font-weight: normal;
@@ -865,7 +878,7 @@ a {
 
 .property-highlights__list li {
   display: flex;
-  min-height: 150px;
+  min-height: 140px;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
@@ -1653,7 +1666,7 @@ a {
   }
 
   .property-showcase {
-    padding: 0 18px 42px;
+    padding: 20px 18px 42px;
   }
 
   .property-showcase__heading {

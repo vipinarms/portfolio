@@ -8,9 +8,7 @@ const amenitySlides = [...document.querySelectorAll(".amenities__image")];
 const amenityButtons = [...document.querySelectorAll(".amenities__dot")];
 const amenityTitle = document.querySelector("#amenity-title");
 const propertyTabs = [...document.querySelectorAll(".property-showcase__tab")];
-const propertyImages = [...document.querySelectorAll(".property-gallery__image")];
-const propertyThumbnails = [...document.querySelectorAll(".property-gallery__thumbnail")];
-const propertyPanel = document.querySelector("#property-panel");
+const propertyPanels = [...document.querySelectorAll(".property-showcase__panel")];
 const addressTrack = document.querySelector(".addresses__track");
 const addressPages = [...document.querySelectorAll(".addresses__page")];
 const addressDots = [...document.querySelectorAll(".addresses__dot")];
@@ -19,6 +17,32 @@ const favouriteVideo = document.querySelector(".why-favourite__video");
 const enquiryForm = document.querySelector(".contact-form");
 const enquiryStatus = document.querySelector(".contact-form__status");
 const backToTopButton = document.querySelector(".back-to-top");
+
+function addTouchSwipe(element, onSwipe) {
+  let startX;
+  let startY;
+  let activePointerId;
+
+  element.addEventListener("pointerdown", (event) => {
+    if (event.pointerType !== "touch" || !event.isPrimary) return;
+    startX = event.clientX;
+    startY = event.clientY;
+    activePointerId = event.pointerId;
+  });
+
+  element.addEventListener("pointerup", (event) => {
+    if (event.pointerId !== activePointerId) return;
+    activePointerId = undefined;
+    const deltaX = event.clientX - startX;
+    const deltaY = event.clientY - startY;
+    if (Math.abs(deltaX) < 45 || Math.abs(deltaX) < Math.abs(deltaY) * 1.25) return;
+    onSwipe(deltaX < 0 ? 1 : -1, event);
+  });
+
+  element.addEventListener("pointercancel", () => {
+    activePointerId = undefined;
+  });
+}
 
 function updateBackToTopVisibility() {
   const visible = window.scrollY > 300;
@@ -137,7 +161,13 @@ amenitySection.addEventListener("focusout", (event) => {
   if (!amenitySection.contains(event.relatedTarget)) startAmenityRotation();
 });
 
-function showPropertyImage(index) {
+addTouchSwipe(amenitySection, (direction) => {
+  showAmenity((activeAmenity + direction + amenitySlides.length) % amenitySlides.length);
+});
+
+function showPropertyImage(index, gallery) {
+  const propertyImages = [...gallery.querySelectorAll(".property-gallery__image")];
+  const propertyThumbnails = [...gallery.querySelectorAll(".property-gallery__thumbnail")];
   activePropertyImage = index;
   propertyImages.forEach((image, imageIndex) => {
     const active = imageIndex === index;
@@ -152,7 +182,12 @@ function showPropertyImage(index) {
 }
 
 function selectPropertyTab(index, moveFocus = false) {
-  showPropertyImage(0);
+  const selectedPanel = document.getElementById(propertyTabs[index].getAttribute("aria-controls"));
+  propertyPanels.forEach((panel, panelIndex) => {
+    panel.hidden = panel !== selectedPanel;
+  });
+  const activeGallery = selectedPanel.querySelector(".property-gallery");
+  showPropertyImage(0, activeGallery);
   propertyTabs.forEach((tab, tabIndex) => {
     const active = tabIndex === index;
     tab.classList.toggle("is-active", active);
@@ -160,8 +195,6 @@ function selectPropertyTab(index, moveFocus = false) {
     tab.tabIndex = active ? 0 : -1;
     if (active && moveFocus) tab.focus();
   });
-  propertyPanel.setAttribute("aria-labelledby", propertyTabs[index].id);
-  document.querySelector(".property-gallery").setAttribute("aria-label", `${propertyTabs[index].textContent.trim()} property gallery`);
 }
 
 propertyTabs.forEach((tab, index) => {
@@ -178,8 +211,25 @@ propertyTabs.forEach((tab, index) => {
   });
 });
 
-propertyThumbnails.forEach((thumbnail) => {
-  thumbnail.addEventListener("click", () => showPropertyImage(Number(thumbnail.dataset.propertySlide)));
+propertyPanels.forEach((panel) => {
+  const gallery = panel.querySelector(".property-gallery");
+  gallery.querySelectorAll(".property-gallery__thumbnail").forEach((thumbnail) => {
+    thumbnail.addEventListener("click", () => showPropertyImage(Number(thumbnail.dataset.propertySlide), gallery));
+  });
+});
+
+addTouchSwipe(document.querySelector(".property-showcase"), (direction, event) => {
+  const selectedTab = propertyTabs.findIndex((tab) => tab.getAttribute("aria-selected") === "true");
+  const gallery = event.target.closest(".property-gallery");
+  const images = gallery ? [...gallery.querySelectorAll(".property-gallery__image")] : [];
+
+  if (images.length > 1) {
+    const activeIndex = images.findIndex((image) => image.classList.contains("is-active"));
+    showPropertyImage((activeIndex + direction + images.length) % images.length, gallery);
+    return;
+  }
+
+  selectPropertyTab((selectedTab + direction + propertyTabs.length) % propertyTabs.length);
 });
 
 function showAddressPage(index) {
@@ -207,6 +257,10 @@ addressDots.forEach((dot) => {
 
 addressArrows.forEach((arrow) => {
   arrow.addEventListener("click", () => showAddressPage(activeAddressPage + Number(arrow.dataset.addressDirection)));
+});
+
+addTouchSwipe(document.querySelector(".addresses__viewport"), (direction) => {
+  showAddressPage(activeAddressPage + direction);
 });
 
 favouriteVideo.querySelector(".why-favourite__play").addEventListener("click", () => {

@@ -50,9 +50,9 @@
     </section>
 
     <footer class="price-strip" aria-label="Apartment pricing" data-aos="fade-up">
-      <p class="price-item"><span>2-3 BR APARTMENTS FROM</span><strong>INR [1.9] CRORES*</strong></p>
+      <p class="price-item"><span>2-3 BR APARTMENTS FROM</span><strong class="text-right">INR [1.9] CRORES*</strong></p>
       <span class="rupee-mark" aria-hidden="true">₹</span>
-      <p class="price-item"><span>3-4 BR APARTMENTS FROM</span><strong>INR [2.5] CRORES*</strong></p>
+      <p class="price-item"><span>3-4 BR APARTMENTS FROM</span><strong class="text-left">INR [2.5] CRORES*</strong></p>
     </footer>
 
     <nav class="slide-controls" aria-label="Choose banner">
@@ -138,11 +138,13 @@
   <section class="property-showcase" aria-labelledby="property-showcase-title">
     <h2 class="property-showcase__heading" id="property-showcase-title" data-aos="fade-down">Find your perfect home</h2>
     <div class="property-showcase__tabs" role="tablist" aria-label="Choose a property" data-aos="fade-up">
-      <button class="property-showcase__tab" id="property-tab-prive" type="button" role="tab" aria-controls="property-panel" aria-selected="false" tabindex="-1" data-property-tab="prive">The Prive</button>
-      <button class="property-showcase__tab is-active" id="property-tab-illam" type="button" role="tab" aria-controls="property-panel" aria-selected="true" tabindex="0" data-property-tab="illam">Illam</button>
-      <button class="property-showcase__tab" id="property-tab-ever" type="button" role="tab" aria-controls="property-panel" aria-selected="false" tabindex="-1" data-property-tab="ever">Ever</button>
+      <button class="property-showcase__tab" id="property-tab-prive" type="button" role="tab" aria-controls="property-panel-prive" aria-selected="false" tabindex="-1" data-property-tab="prive">The Prive</button>
+      <button class="property-showcase__tab is-active" id="property-tab-illam" type="button" role="tab" aria-controls="property-panel-illam" aria-selected="true" tabindex="0" data-property-tab="illam">Illam</button>
+      <button class="property-showcase__tab" id="property-tab-ever" type="button" role="tab" aria-controls="property-panel-ever" aria-selected="false" tabindex="-1" data-property-tab="ever">Ever</button>
     </div>
-
+    
+    <!-- Illam property tab STARTS -->
+    <div class="property-showcase__panel" role="tabpanel" aria-labelledby="property-tab-illam" id="property-panel-illam">
     <div class="property-gallery" aria-label="Illam property gallery">
       <div class="property-gallery__slides" aria-live="off">
         <img class="property-gallery__image is-active" src="images/slide/slide1.png" alt="" aria-hidden="false">
@@ -162,7 +164,7 @@
       </nav>
     </div>
 
-    <div class="property-details" role="tabpanel" aria-labelledby="property-tab-illam" id="property-panel">
+    <div class="property-details">
       <div class="property-details__intro">
         <img class="property-details__logo" src="images/IllamLogo.png" alt="Illam">
         <p class="property-details__kicker">Luxury, in the heart of Vazhuthacaud.</p>
@@ -185,6 +187,89 @@
         </ul>
       </div>
     </div>
+    </div>
+
+    <!-- Illam property tab ENDS -->
+
+
+    <!-- Prive property tab STARTS -->
+  <div class="property-showcase__panel" role="tabpanel" aria-labelledby="property-tab-prive" id="property-panel-prive" hidden>
+    <div class="property-gallery" aria-label="Prive property gallery">
+      <div class="property-gallery__slides" aria-live="off">
+        <img class="property-gallery__image is-active" src="images/thePriveBuildingFavouriteBuilders.png" alt="" aria-hidden="false">
+        
+      </div>
+    
+    </div>
+
+    <div class="property-details">
+      <div class="property-details__intro">
+        <img class="property-details__logo prive-logo" src="images/ThePriveLogo.svg" alt="Prive">
+        <p class="property-details__kicker">An address with a certain distinction.</p>
+        <p class="property-details__rera">K-RERA/PRJ/TVM/136/2026</p>
+        <p class="property-details__summary">At Vellayambalam, The Prive offers the privilege of living in one of Trivandrum’s most prestigious neighbourhoods.</p>
+        <p class="property-details__tagline">The Prive is more than a home. It is an address that speaks for itself.</p>
+        <div class="legacy__actions">
+        <a class="pill-button" href="#contact">Enquire now</a>
+        <a class="pill-button" href="#contact" data-enquiry-type="brochure">Request brochure</a>
+      </div>
+    </div>
+      <div class="property-highlights">
+        <h3>Highlights</h3>
+        <ul class="property-highlights__list">
+          <li><img src="images/primeLocation.png" alt=""><span>Prime Vazhuthacaud location</span></li>
+          <li><img src="images/laminatedMarbleFlooring.png" alt=""><span>2,3 BHK LUXURY APARTMENTS</span></li>
+          <li><img src="images/laminatedWoodenFlooring.png" alt=""><span>In house Mini theatre</span></li>
+          <li><img src="images/readyToOccupy.png" alt=""><span>Ready to occupy</span></li>
+          <li><img src="images/gst.png" alt=""><span>0% GST</span></li>
+        </ul>
+      </div>
+    </div>
+    </div>
+
+    <!-- Prive property tab ENDS -->
+
+    
+    <!-- EVER property tab STARTS -->
+    <div class="property-showcase__panel" role="tabpanel" aria-labelledby="property-tab-ever" id="property-panel-ever" hidden>
+    <div class="property-gallery" aria-label="Ever property gallery">
+      <div class="property-gallery__slides" aria-live="off">
+        <img class="property-gallery__image is-active" src="images/everBuildingFavouriteBuilders.png" alt="" aria-hidden="false">
+        
+      </div>
+    
+    </div>
+
+    <div class="property-details">
+      <div class="property-details__intro">
+        <img class="property-details__logo" src="images/EverLogo.svg" alt="Ever">
+        <p class="property-details__kicker">A better way to live. Right in Vazhuthacaud.</p>
+        <p class="property-details__rera">K-RERA/PRJ/TVM/164/2023</p>
+        <p class="property-details__summary">Located on M.P. Appan Road, Ever brings contemporary luxury to one of Trivandrum’s most established residential neighbourhoods.</p>
+        <p class="property-details__tagline">A well-connected address, designed for a life of quiet comfort.</p>
+        <div class="legacy__actions">
+        <a class="pill-button" href="#contact">Enquire now</a>
+        <a class="pill-button" href="#contact" data-enquiry-type="brochure">Request brochure</a>
+      </div>
+    </div>
+      <div class="property-highlights">
+        <h3>Highlights</h3>
+        <ul class="property-highlights__list">
+          <li><img src="images/primeLocation.png" alt=""><span>Prime Vazhuthacaud location</span></li>
+          <li><img src="images/laminatedMarbleFlooring.png" alt=""><span>2,3 BHK LUXURY APARTMENTS</span></li>
+          <li><img src="images/laminatedWoodenFlooring.png" alt=""><span>In house Mini theatre</span></li>
+          <li><img src="images/readyToOccupy.png" alt=""><span>Ready to occupy</span></li>
+          <li><img src="images/gst.png" alt=""><span>0% GST</span></li>
+        </ul>
+      </div>
+    </div>
+    </div>
+
+    <!-- EVER property tab ENDS -->
+
+
+
+
   </section>
 
   <section class="investment-reasons" aria-labelledby="investment-reasons-title" data-aos="fade-up">
