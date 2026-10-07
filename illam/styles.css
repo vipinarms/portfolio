@@ -1821,7 +1821,7 @@ a {
   }
 
   .why-favourite__stats dt {
-    font-size: clamp(28px, 8vw, 40px);
+    font-size: clamp(24px, 6vw, 36px);
   }
 
   .why-favourite__stats dd {
