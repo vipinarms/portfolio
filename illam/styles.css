@@ -1742,10 +1742,11 @@ a {
   }
 
   .investment-reasons__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 20px;
-    row-gap: 34px;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    /* column-gap: 20px; */
+    row-gap: 54px;
   }
+  .investment-reason__image{aspect-ratio: 1.2;}
 
   .investment-reason__media {
     border-radius: 24px;
