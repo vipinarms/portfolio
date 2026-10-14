@@ -78,8 +78,8 @@ a {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scale(1.06);
-  transition: transform 180ms ease-out;
+  /* transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0) scale(1.06);
+  transition: transform 180ms ease-out; */
 }
 
 .hero__image--object {
@@ -89,8 +89,8 @@ a {
   height: 78%;
   object-fit: contain;
   object-position: bottom;
-  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
-  transition: transform 180ms ease-out;
+  /* transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
+  transition: transform 180ms ease-out; */
 }
 
 .hero__slide--couple .hero__image--object {
@@ -617,7 +617,7 @@ a {
 }
 
 .property-showcase {
-  padding: 84px 5.6vw;
+  padding: 84px 3.6vw; 
   background: #fff;
   color: #090909;
 }
@@ -698,7 +698,7 @@ a {
 
 .property-gallery {
   position: relative;
-  width: min(100%, 1120px);
+  width: min(100%, 1350px);
   aspect-ratio: 1.78;
   margin: 0 auto;
   overflow: hidden;
@@ -780,8 +780,8 @@ a {
 
 .property-details {
   display: grid;
-  width: min(100%, 1120px);
-  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  width: min(100%, 1350px);
+  grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr);
   gap: clamp(18px, 3vw, 60px);
   margin: 24px auto 0;
 }
@@ -809,7 +809,7 @@ a {
 
 .property-details__kicker {
   font-family: "Termina Test Bold", sans-serif;
-  font-size: 8px;
+  font-size: 12px;
   line-height: 1.5;
   letter-spacing: .13em;
   text-transform: uppercase;
@@ -819,7 +819,7 @@ a {
   margin-top: 3px;
   color: #575656;
   font-family: "Termina Test Regular", sans-serif;
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: .06em;
 }
 
@@ -828,14 +828,14 @@ a {
   margin-top: 12px;
   color: #575656;
   font-family: "Termina Test Regular", sans-serif;
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.45;
 }
 
 .property-details__tagline {
   margin: 15px 0px;
   font-family: "Termina Test Medium", sans-serif;
-  font-size: 9px;
+  font-size: 12px;
   line-height: 1.5;
   letter-spacing: .15em;
   text-transform: uppercase;
@@ -896,7 +896,7 @@ a {
 
 .property-highlights__list span {
   font-family: "Termina Test Regular", sans-serif;
-  font-size: 8px;
+  font-size: 11px;
   line-height: 1.5;
   letter-spacing: .06em;
   text-transform: uppercase;
