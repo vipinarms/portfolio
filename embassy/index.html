@@ -192,13 +192,13 @@
 
 			<section class="parent-stories" aria-labelledby="parent-stories-title">
 				<div class="parent-stories__inner">
-					<h2 class="parent-stories__title" id="parent-stories-title" data-aos="fade-right">
+					<h2 class="parent-stories__title" id="parent-stories-title" data-aos="fade-up">
 						<span>Hear from</span>
 						<span>our <strong>parent</strong></span>
 						<strong>community</strong>
 					</h2>
 
-					<div class="parent-stories__slider" data-parent-stories data-aos="fade-left">
+					<div class="parent-stories__slider" data-parent-stories data-aos="fade-down">
 						<div class="parent-stories__video" id="parent-video" role="tabpanel" aria-live="off">
 							<iframe
 								class="parent-stories__frame"
@@ -209,6 +209,8 @@
 								referrerpolicy="strict-origin-when-cross-origin"
 								allowfullscreen
 							></iframe>
+							<button class="parent-stories__nav parent-stories__nav--previous" type="button" aria-label="Previous parent video" data-parent-story-direction="-1"></button>
+							<button class="parent-stories__nav parent-stories__nav--next" type="button" aria-label="Next parent video" data-parent-story-direction="1"></button>
 						</div>
 							<div class="parent-stories__dots" role="tablist" aria-label="Parent community videos" data-aos="fade-up">
 							<button class="parent-stories__dot is-active" type="button" role="tab" aria-label="Show parent video 1" aria-selected="true" aria-controls="parent-video" tabindex="0" data-video="mBKXJ3ZMwn8"></button>
@@ -231,7 +233,7 @@
 
 			<section class="admissions" id="admissions" aria-labelledby="admissions-title">
 				<div class="admissions__inner">
-					<div class="admissions__details" data-aos="fade-right">
+					<div class="admissions__details" data-aos="fade-down">
 						<h2 class="admissions__title" id="admissions-title">
 							<span>Admissions <strong>open</strong></span>
 							<strong>for 2027-28</strong>
@@ -254,7 +256,7 @@
 						</address>
 					</div>
 
-					<form class="admissions__form" aria-label="Admissions enquiry" data-aos="fade-left">
+					<form class="admissions__form" aria-label="Admissions enquiry" data-aos="fade-down">
 						<label class="admissions__field">
 							<span>Student Name<span class="admissions__required">*</span></span>
 							<input type="text" name="student-name" placeholder="Enter student's full name" autocomplete="name" required />
@@ -321,6 +323,7 @@
 			const parentStories = document.querySelector(".parent-stories");
 			const parentFrame = parentStories.querySelector(".parent-stories__frame");
 			const parentDots = [...parentStories.querySelectorAll('[role="tab"]')];
+			const parentStoryNav = [...parentStories.querySelectorAll("[data-parent-story-direction]")];
 			let activeIndex = 0;
 			let autoplay;
 			let imageTransition;
@@ -377,6 +380,12 @@
 					dot.tabIndex = isActive ? 0 : -1;
 				});
 			}
+
+			parentStoryNav.forEach((button) => {
+				button.addEventListener("click", () => {
+					selectParentStory(activeStory + Number(button.dataset.parentStoryDirection));
+				});
+			});
 
 			parentDots.forEach((dot, index) => {
 				dot.addEventListener("click", () => selectParentStory(index));
