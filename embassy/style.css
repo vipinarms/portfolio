@@ -819,6 +819,52 @@ background: #d9d8d3;
 	transform: translateY(-50%) rotate(180deg);
 }
 
+.scroll-to-top {
+	position: fixed;
+	z-index: 3;
+	right: 24px;
+	bottom: 24px;
+	display: grid;
+	width: 50px;
+	height: 50px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background: var(--orange);
+	color: #ffffff;
+	cursor: pointer;
+	opacity: 0;
+	pointer-events: none;
+	place-items: center;
+	visibility: hidden;
+	transition: opacity 180ms ease, visibility 180ms ease, transform 180ms ease;
+}
+
+.scroll-to-top.is-visible {
+	opacity: 1;
+	pointer-events: auto;
+	visibility: visible;
+}
+
+.scroll-to-top svg {
+	width: 24px;
+	height: 24px;
+	fill: none;
+	stroke: currentColor;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-width: 2;
+}
+
+.scroll-to-top:hover {
+	transform: translateY(-3px);
+}
+
+.scroll-to-top:focus-visible {
+	outline: 3px solid var(--blue);
+	outline-offset: 3px;
+}
+
 @media (max-width: 1100px) {
 	.site-header {
 		padding-left: 5vw;

@@ -318,6 +318,11 @@
 			</div>
 		</footer>
 
+		<button class="scroll-to-top" type="button" title="Scroll to top" aria-label="Scroll to top" aria-hidden="true" tabindex="-1">
+			<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+				<path d="M12 19V5M6 11l6-6 6 6" />
+			</svg>
+		</button>
 		<a class="site-cta" href="#admissions">Enquire now</a>
 		<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 		<script>
@@ -330,11 +335,26 @@
 			const parentFrame = parentStories.querySelector(".parent-stories__frame");
 			const parentDots = [...parentStories.querySelectorAll('[role="tab"]')];
 			const parentStoryNav = [...parentStories.querySelectorAll("[data-parent-story-direction]")];
+			const hero = document.querySelector(".hero");
+			const scrollToTop = document.querySelector(".scroll-to-top");
 			let activeIndex = 0;
 			let autoplay;
 			let imageTransition;
 			let activeStory = 0;
 			let parentTouchStart;
+
+			function updateScrollToTopVisibility() {
+				const isVisible = hero.getBoundingClientRect().bottom <= 0;
+				scrollToTop.classList.toggle("is-visible", isVisible);
+				scrollToTop.setAttribute("aria-hidden", String(!isVisible));
+				scrollToTop.tabIndex = isVisible ? 0 : -1;
+			}
+
+			scrollToTop.addEventListener("click", () => {
+				window.scrollTo({ top: 0, behavior: "smooth" });
+			});
+			window.addEventListener("scroll", updateScrollToTopVisibility, { passive: true });
+			updateScrollToTopVisibility();
 
 			function selectTab(index) {
 				activeIndex = (index + tabs.length) % tabs.length;
